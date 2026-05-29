@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRDA: Counterfactual Residual Data Augmentation for Regression</title>
+  <meta name="description" content="Project page for CRDA — Counterfactual Residual Data Augmentation for Regression, ICML 2026." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="CRDA: Counterfactual Residual Data Augmentation for Regression" />
+  <meta property="og:description" content="A simple, model-agnostic data augmentation technique for tabular regression. ICML 2026." />
+  <meta property="og:type" content="article" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <link rel="stylesheet" href="static/css/style.css" />
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container">
+    <span class="venue">ICML 2026</span>
+    <h1>Counterfactual Residual Data Augmentation for Regression</h1>
+    <p class="subtitle">A simple, model-agnostic augmentation method for noise-prone, small-sample tabular regression.</p>
+
+    <p class="authors">
+      <span class="author"><a href="https://github.com/mhmohebbi">Hossein Mohebbi</a><sup>1,2</sup></span>,
+      <span class="author">Oliver Schulte<sup>3</sup></span>,
+      <span class="author">Ke Li<sup>3</sup></span>,
+      <span class="author">Pascal Poupart<sup>1,2</sup></span>
+    </p>
+
+    <p class="affiliations">
+      <span><sup>1</sup>University of Waterloo</span>
+      <span><sup>2</sup>Vector Institute</span>
+      <span><sup>3</sup>Simon Fraser University</span>
+    </p>
+
+    <div class="actions">
+      <a class="btn" href="static/paper.pdf" target="_blank" rel="noopener">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Paper (PDF)
+      </a>
+      <a class="btn placeholder" href="#" aria-disabled="true">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        arXiv (coming soon)
+      </a>
+      <a class="btn placeholder" href="#" aria-disabled="true">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+        OpenReview (coming soon)
+      </a>
+      <a class="btn placeholder" href="#" aria-disabled="true">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
+        ICML Proceedings (coming soon)
+      </a>
+      <a class="btn" href="https://github.com/mhmohebbi/CRDA" target="_blank" rel="noopener">
+        <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.8 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2.9-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.5-1.5 7.8-5.8 7.8-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+        Code (paper)
+      </a>
+      <a class="btn" href="https://pypi.org/project/crda/" target="_blank" rel="noopener">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-4V3H8v4H4l8 9 8-9z"/><line x1="4" y1="21" x2="20" y2="21"/></svg>
+        pip&nbsp;install&nbsp;crda
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ ABSTRACT ============ -->
+  <section id="abstract">
+    <div class="container">
+      <div class="abstract">
+        <h2>Abstract</h2>
+        <p>
+          Data-driven modeling in real-world regression tasks often suffers from limited training samples, high collection costs, and noisy observations. Inspired by the impact of data augmentation in vision and language, we propose a novel <em>Counterfactual Residual Data Augmentation (CRDA)</em> technique for tabular regression. Our key insight is that once a regressor has modeled the systematic component of the data, the remaining noise can be viewed as an invariant residual that remains stable under small perturbations of carefully selected features. We exploit this residual invariance to generate new, yet realistic, training samples, effectively expanding the dataset without requiring additional real data. Our method is model-agnostic and readily applicable to various types of regressors. In experiments across datasets from a variety of benchmark repositories, on average, <em>CRDA</em> reduces an <em>MLP Regressor</em>'s MSE by <strong>22.9%</strong> and an <em>XGBoost Regressor</em>'s MSE by <strong>6.4%</strong>. When compared to existing state-of-the-art data generators and augmentation techniques, CRDA consistently outperforms in MSE reduction. By adding principled counterfactual variations to the training data, our method offers a simple and efficient remedy for noise-prone, small-sample regression settings.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HEADLINE RESULT ============ -->
+  <section id="headline">
+    <div class="container">
+      <h2>TL;DR</h2>
+      <p>
+        Train a base regressor. Compute residuals. Identify the features that look statistically independent of the residual &mdash; the safe-to-perturb ones &mdash; then synthesize new samples by perturbing only those features and <em>reusing the same residual</em> as the noise. A built-in Wilcoxon safety gate decides whether the augmented data actually beats the baseline; if not, CRDA returns the untouched base model.
+      </p>
+
+      <div class="highlights">
+        <div class="highlight">
+          <div class="num">&minus;22.9%</div>
+          <div class="label">Avg. MLP MSE reduction across 9 datasets</div>
+        </div>
+        <div class="highlight">
+          <div class="num">&minus;6.4%</div>
+          <div class="label">Avg. XGBoost MSE reduction across 9 datasets</div>
+        </div>
+        <div class="highlight">
+          <div class="num">5 / 5</div>
+          <div class="label">Augmentation baselines beaten in stability (C-Mixup, ADA, TabDDPM, TVAE, CTGAN)</div>
+        </div>
+      </div>
+
+      <figure>
+        <img src="static/figures/delta_mse_comparison.png" alt="Per-dataset MSE % change after applying CRDA to XGBoost and MLP." />
+        <figcaption>
+          <strong>Figure 1.</strong> MSE percentage change for each dataset, averaged over five training-subset sizes. Error bars: standard error. Lower is better. CRDA delivers consistent gains for both XGBoost (blue) and MLP (magenta), with the data-hungry neural model seeing the largest reductions.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ INTUITION ============ -->
+  <section id="intuition">
+    <div class="container">
+      <h2>The intuition</h2>
+      <p>
+        Take house-price prediction. A model captures systematic value drivers like location and square footage, while the residual captures unobserved factors &mdash; say, a <em>bidding war</em> driven by a specific buyer's urgency. Perturbing a secondary feature like <em>garage finish</em> shifts the systematic price but is unlikely to change that buyer's urgency. CRDA exploits this to synthesize a counterfactual: a house with a different garage finish, an updated systematic price, but the <em>exact same</em> "bidding war" residual.
+      </p>
+      <p>The same pattern recurs across domains:</p>
+      <ul class="examples">
+        <li><strong>Clinical recovery-time prediction.</strong> Perturbing the amount of physical therapy changes a patient's predicted recovery time but does not alter their unobserved physiology.</li>
+        <li><strong>Crop-yield regression.</strong> Perturbing fertilizer dose shifts the predicted yield while leaving the field's unmeasured pest pressure untouched.</li>
+        <li><strong>Home energy forecasting.</strong> Perturbing the thermostat setpoint moves predicted consumption but not whether a window was left open that day.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ METHOD ============ -->
+  <section id="method">
+    <div class="container">
+      <h2>Method</h2>
+
+      <p>
+        CRDA assumes the data-generating process follows an <strong>additive-noise structural causal model</strong>, decomposing the target into a systematic part and a residual:
+      </p>
+
+      <div class="math-block">
+        $$ Y \;=\; g(X) \;+\; Z, \qquad g(X) = \mathbb{E}[Y \mid X]. $$
+        <span class="label">A learned predictor $\hat{g}$ estimates the systematic part; the empirical residual is $\hat{z}_i = y_i - \hat{g}(\mathbf{x}_i)$.</span>
+      </div>
+
+      <p>
+        Partition features into a <em>perturbable</em> subset $X_P$ and a <em>fixed</em> subset $X_R$. CRDA's only assumption is that the residual is conditionally independent of $X_P$ given $X_R$:
+      </p>
+
+      <div class="math-block">
+        $$ \Pr(Z \mid X_P,\, X_R) \;=\; \Pr(Z \mid X_R). $$
+        <span class="label">Under this condition, perturbing $X_P$ leaves the noise distribution unchanged. The residual is still allowed to depend on $X_R$ (heteroscedasticity is fine) &mdash; only the perturbable coordinates need to be exogenous.</span>
+      </div>
+
+      <figure class="figure-causal">
+        <img src="static/figures/causal.png" alt="Two causal graphs: (a) assumption satisfied, (b) assumption violated by an unobserved confounder U." />
+        <figcaption>
+          <strong>Figure 2.</strong> <strong>(a)</strong> A causal structure that satisfies the assumption. <strong>(b)</strong> A violation: a latent confounder $U$ drives both $X_P$ and $Y$, so its effect leaks into $Z$ and creates a backdoor dependence between $X_P$ and the residual.
+        </figcaption>
+      </figure>
+
+      <h3>Algorithm at a glance</h3>
+      <ol class="steps">
+        <li><strong>Split &amp; baseline.</strong> Fit a baseline regressor $\hat{g}$ on $\mathcal{D}_{\text{train}}$.</li>
+        <li><strong>Residuals.</strong> Compute $\hat{z}_i = y_i - \hat{g}(\mathbf{x}_i)$ for every training point.</li>
+        <li><strong>Independence filter.</strong> Select $X_P$ by removing any feature that (a) has a direct edge to $\hat{Z}$ under the PC algorithm or (b) is strongly Pearson-correlated with $\hat{Z}$. If $X_P = \emptyset$, return the baseline.</li>
+        <li><strong>Counterfactual generation.</strong> For each $(\mathbf{x}_i, y_i)$, draw $\delta\sim\mathrm{Unif}[-p, p]$ on $X_P$ and synthesize $y'_i = \hat{g}(\mathbf{x}'_i) + \hat{z}_i$, reusing the original residual.</li>
+        <li><strong>Safety gate.</strong> $K$-fold CV the augmented vs. unaugmented model and run a Wilcoxon signed-rank test on the paired errors.</li>
+        <li><strong>Commit or abstain.</strong> If $p &lt; \alpha$, retrain on $\mathcal{D}_{\text{train}}\cup\mathcal{D}_{\text{aug}}$; otherwise return the untouched $\hat{g}$.</li>
+      </ol>
+
+      <figure class="figure-flow">
+        <img src="static/figures/flow.png" alt="CRDA pipeline diagram." />
+        <figcaption>
+          <strong>Figure 3.</strong> The CRDA pipeline. Residual extraction (left) preserves $\hat{z}_i$; the independence filter (right) screens for perturbable features; the two recombine in counterfactual labeling.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ SYNTHETIC SCALING ============ -->
+  <section id="sweet-spot">
+    <div class="container">
+      <h2>When does CRDA help? The sweet spot</h2>
+      <p>
+        On a synthetic DGP $Y = X_1^2 + X_2 X_3 + Z$ with $Z \perp (X_1, X_2, X_3)$, we generate 50,000 samples and apply CRDA across a range of sample sizes. CRDA helps least at the extremes &mdash; below 2.5k samples the base predictor is too weak to produce meaningful residuals; above 30k the baseline is already accurate enough that there's little room to improve &mdash; and most in the small-to-moderate regime that dominates real applications.
+      </p>
+      <figure>
+        <img src="static/figures/synthetic_data_comparison.png" alt="MSE change vs. sample size on synthetic data for XGB and MLP." />
+        <figcaption>
+          <strong>Figure 4.</strong> Both base models exhibit a clear sweet spot (roughly 2.5k &ndash; 20k samples). Stronger learners shift the optimum earlier &mdash; a CatBoost ablation in the paper peaks around $N \approx 500$.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ COMPARISON ============ -->
+  <section id="comparison">
+    <div class="container">
+      <h2>Against state-of-the-art tabular augmentation</h2>
+      <p>
+        Across nine UCI / PMLB / Kaggle datasets, CRDA is the only method that <em>reliably improves</em> both XGBoost and MLP without catastrophic failures. Geometric methods (C-Mixup, ADA) help on some datasets but inflate error by 100%+ on others; deep generators (TabDDPM, TVAE, CTGAN) frequently degrade regression performance because they don't preserve the conditional $P(Y\mid X)$ that regressors depend on.
+      </p>
+      <p style="color: var(--muted); font-size: 0.92rem;">
+        <strong>Note:</strong> for a fair head-to-head, CRDA's Wilcoxon safety gate is <em>disabled</em> in this comparison, so augmentation is applied unconditionally just like the competing methods. The advantage below comes from the augmentation mechanism itself, not from the gate.
+      </p>
+
+      <div class="table-scroll">
+        <table class="compare">
+          <thead>
+            <tr>
+              <th>Dataset</th>
+              <th>Model</th>
+              <th>C-Mixup</th>
+              <th>ADA</th>
+              <th>TabDDPM</th>
+              <th>TVAE</th>
+              <th>CTGAN</th>
+              <th>CRDA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="2" class="ds">CPU Performance</td><td class="model">XGB</td>
+              <td>+1.7</td><td>+1.9</td><td>+36.5</td><td>+24.2</td><td>+41.6</td>
+              <td class="best">&minus;1.4</td>
+            </tr>
+            <tr>
+              <td class="model">MLP</td>
+              <td>&minus;0.9</td><td>&minus;0.6</td><td>+30.2</td><td>+36.6</td><td>+108.0</td>
+              <td class="best">&minus;12.2</td>
+            </tr>
+            <tr>
+              <td rowspan="2" class="ds">Satellite Image</td><td class="model">XGB</td>
+              <td>+6.4</td><td>+1.4</td><td>+10.7</td><td>+12.5</td><td>+11.0</td>
+              <td class="best">&minus;0.7</td>
+            </tr>
+            <tr>
+              <td class="model">MLP</td>
+              <td>&minus;0.8</td><td>+3.3</td><td>+9.9</td><td>+18.8</td><td>+55.1</td>
+              <td class="best">&minus;23.5</td>
+            </tr>
+            <tr>
+              <td rowspan="2" class="ds">Synthetic Regression</td><td class="model">XGB</td>
+              <td>+141.5</td><td>+18.3</td><td>+25.0</td><td>+116.5</td><td>+164.1</td>
+              <td class="best">+2.3</td>
+            </tr>
+            <tr>
+              <td class="model">MLP</td>
+              <td>+78.1</td><td>+16.7</td><td>&minus;19.2</td><td>+71.6</td><td>+198.9</td>
+              <td class="best">&minus;33.3</td>
+            </tr>
+            <tr>
+              <td rowspan="2" class="ds">Energy Efficiency</td><td class="model">XGB</td>
+              <td>&minus;18.0</td><td>&minus;20.7</td><td>+3.4</td><td>&minus;19.4</td><td class="best">&minus;24.7</td>
+              <td>&minus;10.7</td>
+            </tr>
+            <tr>
+              <td class="model">MLP</td>
+              <td>+11.9</td><td>&minus;22.9</td><td>+11.1</td><td>+127.7</td><td>+360.2</td>
+              <td class="best">&minus;32.5</td>
+            </tr>
+            <tr>
+              <td rowspan="2" class="ds">Parkinson's Monitoring</td><td class="model">XGB</td>
+              <td>+105.1</td><td>+89.5</td><td>+286.7</td><td>+405.1</td><td>+565.3</td>
+              <td class="best">&minus;0.3</td>
+            </tr>
+            <tr>
+              <td class="model">MLP</td>
+              <td>+116.1</td><td>+28.7</td><td>+184.9</td><td>+659.0</td><td>+1454.2</td>
+              <td class="best">&minus;48.2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="caption">
+        <strong>Table 1 (excerpt).</strong> $\Delta$ MSE % vs. each augmentation baseline, averaged over 10 seeds. Lower is better. Bold is best per row. The full nine-dataset table with standard errors is in the paper.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ PIP PACKAGE ============ -->
+  <section id="package">
+    <div class="container">
+      <h2>Try it: the <code class="inline">crda</code> pip package</h2>
+
+      <div class="pkg-callout">
+        <p>
+          A standalone pip package, <a href="https://pypi.org/project/crda/" target="_blank" rel="noopener"><code class="inline">crda</code></a>, makes CRDA a drop-in for any sklearn-compatible regressor.
+        </p>
+
+        <pre class="code">pip install crda</pre>
+
+        <pre class="code">from crda import CRDA, Config
+from sklearn.neural_network import MLPRegressor
+
+config  = Config(dataset="data.csv", dataset_name="my_data", random_seed=42)
+crda    = CRDA(config)
+results = crda.run(MLPRegressor(hidden_layer_sizes=(100, 50)))
+
+print(f"Baseline MSE: {results['score'].values[0]:.4f}")
+print(f"CRDA MSE:     {results['aug_score'].values[0]:.4f}")
+print(f"Improvement:  {results['delta_score'].values[0]:.2f}%")</pre>
+
+        <p class="small">
+          <strong>Note:</strong> the pip package is a reference implementation, not a 1-to-1 reproduction of the paper experiments. It uses a different independence filter and adds native support for categorical features &mdash; see <a href="https://github.com/mhmohebbi/CRDA-package#differences-from-the-paper" target="_blank" rel="noopener">Differences from the Paper</a> in the package README for the full breakdown. The residual-reuse construction and the Wilcoxon safety gate are identical. For the exact paper pipeline and experiments, see the <a href="https://github.com/mhmohebbi/CRDA" target="_blank" rel="noopener">research repository</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BIBTEX ============ -->
+  <section id="bibtex">
+    <div class="container">
+      <h2>BibTeX</h2>
+      <pre class="bibtex">@inproceedings{mohebbi2026crda,
+  title     = {Counterfactual Residual Data Augmentation for Regression},
+  author    = {Mohebbi, Hossein and Schulte, Oliver and Li, Ke and Poupart, Pascal},
+  booktitle = {Proceedings of the 43rd International Conference on Machine Learning (ICML)},
+  year      = {2026}
+}</pre>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>
+      Page template &copy; 2026 Hossein Mohebbi.
+      Correspondence: <a href="mailto:hossein.mohebbi@uwaterloo.ca">hossein.mohebbi@uwaterloo.ca</a>.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,464 @@
+/* ---------- Base ---------- */
+:root {
+  --bg: #ffffff;
+  --fg: #1f2933;
+  --muted: #5b6772;
+  --accent: #1f6f8b;
+  --accent-2: #b13768;
+  --rule: #e6e9ec;
+  --code-bg: #f6f8fa;
+  --max-width: 920px;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Source Sans 3", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+               "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main, header, footer { display: block; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+code, pre, kbd {
+  font-family: "JetBrains Mono", "SF Mono", Menlo, Monaco, Consolas,
+               "Liberation Mono", monospace;
+}
+
+/* ---------- Layout ---------- */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section { padding: 56px 0; border-bottom: 1px solid var(--rule); }
+section:last-of-type { border-bottom: 0; }
+
+h1, h2, h3, h4 {
+  font-family: "Source Serif 4", "Source Serif Pro", Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  color: #14202b;
+  line-height: 1.25;
+  margin: 0 0 0.5em;
+}
+h2 {
+  font-size: 1.75rem;
+  letter-spacing: -0.005em;
+  margin-bottom: 1rem;
+}
+h3 {
+  font-size: 1.2rem;
+  margin-top: 1.75em;
+  margin-bottom: 0.6em;
+}
+
+p { margin: 0 0 1em; }
+
+/* ---------- Header / Hero ---------- */
+.hero {
+  padding: 64px 0 40px;
+  text-align: center;
+  border-bottom: 1px solid var(--rule);
+}
+
+.hero .venue {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  border: 1px solid var(--accent-2);
+  border-radius: 999px;
+  padding: 3px 12px;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(1.7rem, 4.2vw, 2.6rem);
+  line-height: 1.18;
+  margin-bottom: 0.4em;
+}
+
+.hero .subtitle {
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin-bottom: 1.5em;
+}
+
+.authors {
+  font-size: 1.02rem;
+  margin: 0.4em 0 0.4em;
+  color: #2c3a48;
+}
+.authors a { color: #2c3a48; }
+.authors .author { white-space: nowrap; margin: 0 0.15em; }
+.authors sup { font-size: 0.72em; color: var(--accent); margin-left: 1px; }
+
+.affiliations {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin: 0.6em 0 1.5em;
+}
+.affiliations sup { color: var(--accent); margin-right: 2px; }
+.affiliations span { margin: 0 0.6em; white-space: nowrap; }
+
+/* ---------- Action buttons ---------- */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  background: #1f2933;
+  color: #fff !important;
+  border-radius: 999px;
+  font-size: 0.93rem;
+  font-weight: 500;
+  border: 1px solid #1f2933;
+  transition: background 120ms ease, transform 120ms ease;
+}
+.btn:hover {
+  background: #2c3a48;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+.btn.placeholder {
+  background: transparent;
+  color: #6b7682 !important;
+  border-color: #cdd4dc;
+  pointer-events: none;
+  opacity: 0.85;
+}
+.btn .ico {
+  display: inline-block;
+  width: 16px; height: 16px;
+  vertical-align: -3px;
+}
+
+/* ---------- Abstract ---------- */
+.abstract {
+  background: #fafbfc;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 24px 28px;
+  font-size: 1rem;
+}
+.abstract h2 {
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 0.6em;
+}
+
+/* ---------- Highlights ---------- */
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 18px 0 8px;
+}
+.highlight {
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 16px 18px;
+  background: #fff;
+}
+.highlight .num {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--accent-2);
+  line-height: 1;
+}
+.highlight .label {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* ---------- Figures ---------- */
+figure {
+  margin: 18px 0 8px;
+  text-align: center;
+}
+figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+figcaption {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-top: 8px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.fig-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 12px 0;
+}
+.fig-grid-2 figure { margin: 0; }
+
+@media (max-width: 640px) {
+  .fig-grid-2 { grid-template-columns: 1fr; }
+}
+
+.fig-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 12px 0;
+}
+.fig-grid-4 figure { margin: 0; }
+
+/* ---------- Math block ---------- */
+.math-block {
+  background: #fafbfc;
+  border-left: 3px solid var(--accent);
+  padding: 14px 18px;
+  margin: 18px 0;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 1.05rem;
+  overflow-x: auto;
+}
+.math-block .label {
+  display: block;
+  font-family: inherit;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+/* ---------- Algorithm steps ---------- */
+.steps {
+  counter-reset: step;
+  padding-left: 0;
+  list-style: none;
+}
+.steps > li {
+  counter-increment: step;
+  position: relative;
+  padding: 12px 0 12px 48px;
+  border-top: 1px solid var(--rule);
+}
+.steps > li:last-child { border-bottom: 1px solid var(--rule); }
+.steps > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0; top: 14px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-family: "Source Serif 4", Georgia, serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+}
+.steps strong { color: #14202b; }
+
+/* ---------- Code block ---------- */
+pre.code {
+  background: var(--code-bg);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 14px 18px;
+  overflow-x: auto;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  white-space: pre;
+}
+code.inline {
+  background: var(--code-bg);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.88em;
+}
+
+/* ---------- Tables ---------- */
+.table-scroll {
+  overflow-x: auto;
+  margin: 16px 0 6px;
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+}
+
+table.compare,
+table.results {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  margin: 0;
+  background: #fff;
+}
+
+table.compare th, table.compare td,
+table.results th, table.results td {
+  border-bottom: 1px solid var(--rule);
+  padding: 8px 10px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Left-align only the header's first two columns and the body's label
+   cells. nth-child on body rows is unreliable because the rowspan'd
+   dataset cell shifts child indices on the second row of each group. */
+table.compare thead th:first-child,
+table.compare thead th:nth-child(2),
+table.results thead th:first-child,
+table.results thead th:nth-child(2),
+table.compare td.ds,
+table.compare td.model,
+table.results td.ds {
+  text-align: left;
+}
+
+table.compare thead th,
+table.results thead th {
+  border-bottom: 2px solid #c3cad1;
+  font-weight: 600;
+  background: #f6f8fa;
+  position: sticky;
+  top: 0;
+}
+
+table.compare .best { color: var(--accent-2); font-weight: 600; }
+
+/* dataset label cells (multi-row groups) */
+table.compare td.ds,
+table.results td.ds {
+  font-weight: 600;
+  background: #fafbfc;
+  vertical-align: middle;
+  text-align: left;
+  border-right: 1px solid var(--rule);
+}
+
+/* keep every cell vertically centered so rowspan cells line up */
+table.compare th, table.compare td,
+table.results th, table.results td {
+  vertical-align: middle;
+}
+
+/* green / red cells for results table */
+table.results td.good {
+  background-color: #d4ecd4;
+  color: #14431a;
+}
+table.results td.bad {
+  background-color: #fbcdcd;
+  color: #7a1414;
+  font-weight: 500;
+}
+
+/* inline cell-color key chips for prose */
+.cell-key {
+  display: inline-block;
+  padding: 0 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.cell-key.good { background: #d4ecd4; color: #14431a; }
+.cell-key.bad  { background: #fbcdcd; color: #7a1414; }
+
+/* caption under tables */
+p.caption {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-top: 6px;
+}
+
+/* ---------- Examples list ---------- */
+ul.examples {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+}
+ul.examples li {
+  padding: 12px 16px 12px 18px;
+  border-left: 3px solid var(--accent);
+  background: #fafbfc;
+  margin-bottom: 10px;
+  border-radius: 0 8px 8px 0;
+}
+ul.examples li strong { color: #14202b; }
+
+
+/* ---------- Diagram-style figures (sized to actual content) ---------- */
+figure.figure-causal {
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+figure.figure-causal img { max-width: 100%; }
+
+figure.figure-flow {
+  max-width: 460px;
+  margin-left: auto;
+  margin-right: auto;
+}
+figure.figure-flow img { max-width: 100%; }
+
+/* ---------- Pip package callout ---------- */
+.pkg-callout {
+  background: linear-gradient(180deg, #fdf7f0 0%, #fdf3ea 100%);
+  border: 1px solid #f0d7be;
+  border-radius: 12px;
+  padding: 24px 26px;
+  margin-top: 8px;
+}
+.pkg-callout h3 { margin-top: 0; }
+.pkg-callout .small {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* ---------- BibTeX ---------- */
+.bibtex {
+  background: var(--code-bg);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 16px 18px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  padding: 28px 0 48px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  text-align: center;
+}
+footer a { color: var(--muted); }
